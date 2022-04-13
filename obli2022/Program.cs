@@ -10,8 +10,6 @@ namespace obli2022
 
         static void Main(string[] args)
         {
-            
-
             int opcion = 0;
 
             do
@@ -41,7 +39,6 @@ namespace obli2022
                         ListarRepartidores();
                         break;
                     case 6:
-                        //SOLO PARA PRUEBAS
                         ModificarPrecioMinimo();
                         break;
                     default:
@@ -112,10 +109,9 @@ namespace obli2022
             Console.WriteLine("Ingresar nuevo precio minimo :");
             decimal nuevoPrecio = decimal.Parse(Console.ReadLine());
 
-            if (admin.ModificarPrecio(nuevoPrecio))
-            {
-                Console.WriteLine("Precio actualizado correctamente");
-            }
+           
+            Console.WriteLine($"Precio minimo ahora es {admin.ModificarPrecio(nuevoPrecio)}");
+            
         }
     }
 }

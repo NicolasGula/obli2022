@@ -74,10 +74,10 @@ namespace Dominio
         }
 
         //Cambiar precio minimo de plato
-        public static bool ModificarPrecioMinimo(decimal nuevoPrecio)
+        public static decimal ModificarPrecioMinimo(decimal nuevoPrecio)
         {
             precioMinimo = nuevoPrecio;
-            return true;
+            return precioMinimo;
         }
 
 

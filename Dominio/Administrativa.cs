@@ -191,7 +191,7 @@ namespace Dominio
             clientes.Sort(new OrdenarClientePorApellido());
         }
 
-        public bool ModificarPrecio(decimal nuevoPrecio)
+        public decimal ModificarPrecio(decimal nuevoPrecio)
         {
             return Plato.ModificarPrecioMinimo(nuevoPrecio);
         }

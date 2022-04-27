@@ -4,12 +4,20 @@ using System.Text;
 
 namespace Dominio
 {
-    class Local
+    public class Local : Servicio
     {
         private int numeroMesa;
         private Mozo mozo;
         private int cantidadComensales;
         private decimal precioCubierto;
+
+        public Local(Cliente cliente, DateTime fecha, CantidadPlatos cantidadPlatos, int numeroMesa, Mozo mozo, int cantidadComensales, decimal preciocubierto) : base(cliente, fecha, cantidadPlatos)
+        {
+            this.NumeroMesa = numeroMesa;
+            this.Mozo = mozo;
+            this.CantidadComensales = cantidadComensales;
+            this.PrecioCubierto = precioCubierto;
+        }
 
         public int NumeroMesa
         {

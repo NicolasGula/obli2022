@@ -11,13 +11,16 @@ namespace Dominio
         private List<Cliente> clientes = new List<Cliente>();
         private List<Mozo> mozos = new List<Mozo>();
         private List<Repartidor> repartidores = new List<Repartidor>();
-        
+
+        private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();  
         public Administrativa()
         {
             PreCargaPlatos();
             PreCargaClientes();
             PreCargaMozos();
             PreCargaRepartidores();
+            PreCargarCantidadPlatos();
+            //PreCargaServicios();
         }
 
         //PreCarga de los datos de Platos, Clientes y Mozos.
@@ -61,6 +64,82 @@ namespace Dominio
             CargarRepartidor("Bicicleta", "Penelope", "Cruz");
             CargarRepartidor("Moto", "Federico", "Baston");
         }
+
+        private void PreCargarCantidadPlatos()
+        {
+            //TODO empezar desde aca.
+            Plato unPlato = BuscarPlato(2);
+            CantidadPlatos unaCantidad;
+            if(unPlato != null)
+            {
+                CargarCantidadPlatos(unPlato, 4);
+            }
+
+            unPlato = BuscarPlato(4);
+            if (unPlato != null)
+            {
+                CargarCantidadPlatos(unPlato, 3);
+            }
+
+            unPlato = BuscarPlato(3);
+            if (unPlato != null)
+            {
+                CargarCantidadPlatos(unPlato, 1);
+            }
+
+        }
+
+        public CantidadPlatos CargarCantidadPlatos(Plato unPlato, int cantidad)
+        {
+            bool exito = false;
+
+            if(cantidad > 0)
+            {
+                CantidadPlatos unaCantidad;
+
+                return unaCantidad = new CantidadPlatos(cantidad, unPlato);
+               
+            }
+
+            return null;
+
+        }
+
+        public List<CantidadPlatos> Cantidad()
+        {
+            List<CantidadPlatos> aux = new List<CantidadPlatos>();
+            foreach (CantidadPlatos item in cantidadPlatos)
+            {
+                aux.Add(item);
+            }
+
+            return aux;
+        }
+
+        public Plato BuscarPlato(int id)
+        {
+            foreach (Plato item in platos)
+            {
+                if(id == item.Id)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        //private void PreCargaServicios()
+        //{
+            
+        //    CargarLocal();
+        //    CargarDelivery();
+        //}
+
+        //public bool CargarLocal()
+        //{
+
+        //}
 
         //TODO:Precarga de 10 servicios
         //TODO:Carga de los servicios

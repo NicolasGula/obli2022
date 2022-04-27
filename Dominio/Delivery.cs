@@ -4,11 +4,18 @@ using System.Text;
 
 namespace Dominio
 {
-    class Delivery
+    public class Delivery : Servicio
     {
         private string direccion;
         private Repartidor repartidor;
         private decimal distancia;
+
+        public Delivery(Cliente cliente, DateTime fecha, CantidadPlatos cantidadPlatos) : base(cliente, fecha, cantidadPlatos)
+        {
+            this.Direccion = direccion;
+            this.Repartidor = repartidor;
+            this.Distancia = distancia;
+        }
 
         public string Direccion
         {
@@ -28,6 +35,8 @@ namespace Dominio
             set { distancia = value; }
         }
 
+
+        
 
 
     }

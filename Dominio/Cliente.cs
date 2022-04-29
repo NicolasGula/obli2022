@@ -25,7 +25,7 @@ namespace Dominio
         }
 
         //Constructor
-        public Cliente(string mail, string password, string nombre, string apellido) : base (nombre, apellido)
+        public Cliente(string mail, string password, string nombre, string apellido) : base(nombre, apellido)
         {
             this.mail = mail;
             this.password = password;
@@ -131,6 +131,6 @@ namespace Dominio
             return $"CLIENTE: {base.Apellido} {base.Nombre} || ID :{base.Id} || EMAIL : {mail} ";
         }
 
-        
+
     }
 }

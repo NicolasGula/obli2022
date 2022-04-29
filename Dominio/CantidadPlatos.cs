@@ -32,6 +32,18 @@ namespace Dominio
             return $"{cantidad} de {plato.Nombre}";
         }
 
+        public bool Validar()
+        {
+
+            return cantidad > 0;
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            CantidadPlatos CantidadPlatos = obj as CantidadPlatos;
+            return obj != null && Plato == CantidadPlatos.Plato;
+        }
 
     }
 }

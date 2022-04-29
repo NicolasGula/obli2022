@@ -63,7 +63,7 @@ namespace Dominio
             do
             {
                 char letra = palabra[i];
-                if(letra >= '0' && letra <= '9')
+                if (letra >= '0' && letra <= '9')
                 {
                     exito = false;
                 }
@@ -72,7 +72,6 @@ namespace Dominio
 
             return exito;
         }
-
 
     }
 }

@@ -60,17 +60,17 @@ namespace Dominio
             return this.precio >= precioMinimo;
         }
 
-        //Equals
-        public override bool Equals(object obj)
-        {
-            Plato plato = obj as Plato;
-            return obj != null && id == plato.Id;
-        }
+        ////Equals
+        //public override bool Equals(object obj)
+        //{
+        //    Plato plato = obj as Plato;
+        //    return obj != null && id == plato.Id;
+        //}
 
         //Tostring
         public override string ToString()
         {
-            return $"{id} {nombre} -> ${precio}"; 
+            return $"{id} {nombre} -> ${precio}";
         }
 
         //Cambiar precio minimo de plato

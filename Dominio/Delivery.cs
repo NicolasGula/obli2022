@@ -10,7 +10,7 @@ namespace Dominio
         private Repartidor repartidor;
         private decimal distancia;
 
-        public Delivery(Cliente cliente, DateTime fecha, CantidadPlatos cantidadPlatos) : base(cliente, fecha, cantidadPlatos)
+        public Delivery(int id, Cliente cliente, DateTime fecha, CantidadPlatos cantidadPlatos) : base(id, cliente, fecha, cantidadPlatos)
         {
             this.Direccion = direccion;
             this.Repartidor = repartidor;
@@ -36,7 +36,7 @@ namespace Dominio
         }
 
 
-        
+
 
 
     }

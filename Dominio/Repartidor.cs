@@ -37,7 +37,7 @@ namespace Dominio
 
         public override string ToString()
         {
-            return $"{base.Apellido} {base.Nombre} TIPO : {tipoDeVehiculo}"; 
+            return $"{base.Apellido} {base.Nombre} TIPO : {tipoDeVehiculo}";
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Dominio
         }
 
         //Constructor
-        public Mozo(string nombre, string apellido) : base( nombre, apellido)
+        public Mozo(string nombre, string apellido) : base(nombre, apellido)
         {
             this.numFuncionario = ++numFuncionarioAuto;
         }
@@ -32,7 +32,7 @@ namespace Dominio
         //ToString
         public override string ToString()
         {
-            return $" {base.Apellido} {base.Nombre} Funcionario Numero : {numFuncionario}"; 
+            return $" {base.Apellido} {base.Nombre} Funcionario Numero : {numFuncionario}";
         }
 
         //Equals

@@ -11,21 +11,22 @@ namespace Dominio
         private List<Cliente> clientes = new List<Cliente>();
         private List<Mozo> mozos = new List<Mozo>();
         private List<Repartidor> repartidores = new List<Repartidor>();
+        private List<Local> locales = new List<Local>();
 
-        private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();  
+        private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();
         public Administrativa()
         {
             PreCargaPlatos();
             PreCargaClientes();
             PreCargaMozos();
             PreCargaRepartidores();
-            PreCargarCantidadPlatos();
-            //PreCargaServicios();
+            //PreCargarCantidadPlatos();
+            PreCargaServicios();
         }
 
         //PreCarga de los datos de Platos, Clientes y Mozos.
         private void PreCargaPlatos()
-        { 
+        {
             CargarPlato(1, "Milanesa", 500);
             CargarPlato(2, "Hamburguesa", 250);
             CargarPlato(3, "Fideos con pesto", 200);
@@ -58,47 +59,48 @@ namespace Dominio
 
         private void PreCargaRepartidores()
         {
-            CargarRepartidor("Moto","Federico", "Baston");
+            CargarRepartidor("Moto", "Federico", "Baston");
             CargarRepartidor("Bicicleta", "Nahuel", "Larrosa");
             CargarRepartidor("Pie", "Paola", "De los santos");
             CargarRepartidor("Bicicleta", "Penelope", "Cruz");
             CargarRepartidor("Moto", "Federico", "Baston");
         }
 
-        private void PreCargarCantidadPlatos()
-        {
-            //TODO empezar desde aca.
-            Plato unPlato = BuscarPlato(2);
-            CantidadPlatos unaCantidad;
-            if(unPlato != null)
-            {
-                CargarCantidadPlatos(unPlato, 4);
-            }
+        //private void PreCargarCantidadPlatos()
+        //{
+        //    //TODO empezar desde aca.
+        //    Plato unPlato = BuscarPlato(2);
+        //    if(unPlato != null)
+        //    {
+        //     CargarCantidadPlatos(unPlato, 4);
 
-            unPlato = BuscarPlato(4);
-            if (unPlato != null)
-            {
-                CargarCantidadPlatos(unPlato, 3);
-            }
+        //    }
 
-            unPlato = BuscarPlato(3);
-            if (unPlato != null)
-            {
-                CargarCantidadPlatos(unPlato, 1);
-            }
+        //    unPlato = BuscarPlato(4);
+        //    if (unPlato != null)
+        //    {
+        //        CargarCantidadPlatos(unPlato, 3);
+        //    }
 
-        }
+        //    unPlato = BuscarPlato(3);
+        //    if (unPlato != null)
+        //    {
+        //        CargarCantidadPlatos(unPlato, 1);
+        //    }
+
+        //}
 
         public CantidadPlatos CargarCantidadPlatos(Plato unPlato, int cantidad)
         {
             bool exito = false;
 
-            if(cantidad > 0)
+            if (cantidad > 0)
             {
                 CantidadPlatos unaCantidad;
+                unaCantidad = new CantidadPlatos(cantidad, unPlato);
 
-                return unaCantidad = new CantidadPlatos(cantidad, unPlato);
-               
+                return unaCantidad;
+
             }
 
             return null;
@@ -116,11 +118,46 @@ namespace Dominio
             return aux;
         }
 
+        public Local BuscarLocal(int id)
+        {
+            foreach (Local item in locales)
+            {
+                if (id == item.Id)
+                {
+                    return item;
+                }
+
+            }
+            return null;
+        }
+
+        public Cliente BuscarCliente(int id)
+        {
+            foreach (Cliente item in clientes)
+            {
+                if (id == item.Id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        public Mozo BuscarMozo(int id)
+        {
+            foreach (Mozo item in mozos)
+            {
+                if (id == item.NumFuncionario)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
         public Plato BuscarPlato(int id)
         {
             foreach (Plato item in platos)
             {
-                if(id == item.Id)
+                if (id == item.Id)
                 {
                     return item;
                 }
@@ -129,17 +166,56 @@ namespace Dominio
             return null;
         }
 
-        //private void PreCargaServicios()
-        //{
-            
-        //    CargarLocal();
-        //    CargarDelivery();
-        //}
+        private void PreCargaServicios()
+        {
+            CantidadPlatos unaCantidad;
+            Plato unPlato = BuscarPlato(2);
+            Cliente unCliente = BuscarCliente(2);
+            Mozo unMozo = BuscarMozo(1);
+            unaCantidad = CargarCantidadPlatos(unPlato, 4);
+            CargarLocal(1, unCliente, new DateTime(), unaCantidad, 4, unMozo, 2, 70);
 
-        //public bool CargarLocal()
-        //{
+            unPlato = BuscarPlato(5);
+            unCliente = BuscarCliente(3);
+            unMozo = BuscarMozo(2);
+            unaCantidad = CargarCantidadPlatos(unPlato, 2);
+            CargarLocal(2, unCliente, new DateTime(), unaCantidad, 4, unMozo, 2, 70);
 
-        //}
+            unPlato = BuscarPlato(5);
+            unCliente = BuscarCliente(3);
+            unMozo = BuscarMozo(2);
+            unaCantidad = CargarCantidadPlatos(unPlato, 8);
+            CargarLocal(2, unCliente, new DateTime(), unaCantidad, 4, unMozo, 2, 70);
+
+
+
+            unPlato = BuscarPlato(1);
+            unCliente = BuscarCliente(3);
+            unMozo = BuscarMozo(2);
+            unaCantidad = CargarCantidadPlatos(unPlato, 8);
+            CargarLocal(2, unCliente, new DateTime(), unaCantidad, 4, unMozo, 2, 70);
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        public bool CargarLocal(int id, Cliente UnCliente, DateTime unaFecha, CantidadPlatos unaCantidad, int nuemroMesa, Mozo unMozo, int cantComensales, decimal precioCubierto)
+        {
+
+            Local unLocal;
+            unLocal = new Local(id, UnCliente, unaFecha, unaCantidad, nuemroMesa, unMozo, cantComensales, precioCubierto);
+
+            return AgregarLocal(unLocal, unaCantidad);
+
+        }
 
         //TODO:Precarga de 10 servicios
         //TODO:Carga de los servicios
@@ -167,10 +243,12 @@ namespace Dominio
             return AgregarMozo(unMozo);
         }
 
+
+
         public bool CargarRepartidor(string tipoVehiculo, string nombre, string apellido)
         {
             Repartidor unRepartidor;
-            unRepartidor = new Repartidor(tipoVehiculo,  nombre,  apellido);
+            unRepartidor = new Repartidor(tipoVehiculo, nombre, apellido);
             return AgregarRepartidor(unRepartidor);
         }
 
@@ -178,12 +256,32 @@ namespace Dominio
         public bool AgregarPlato(Plato unPlato)
         {
             bool exito = false;
-            if(unPlato != null && unPlato.ValidarPlato() && !platos.Contains(unPlato))
+            if (unPlato != null && unPlato.ValidarPlato() && !platos.Contains(unPlato))
             {
                 platos.Add(unPlato);
                 exito = true;
             }
             return exito;
+        }
+
+        public bool AgregarLocal(Local unLocal, CantidadPlatos unaCantidad)
+        {
+
+            if (!locales.Contains(unLocal))
+            {
+
+                locales.Add(unLocal);
+
+                return true;
+            }
+            else
+            {
+
+                BuscarLocal(unLocal.Id).AgregarPlato(unaCantidad);
+
+            }
+
+            return true;
         }
 
         public bool AgregarCliente(Cliente unCliente)
@@ -220,6 +318,16 @@ namespace Dominio
         }
 
         //Listas
+
+        public List<Local> ListarLocales()
+        {
+            List<Local> aux = new List<Local>();
+            foreach (Local item in locales)
+            {
+                aux.Add(item);
+            }
+            return aux;
+        }
         public List<Plato> ListarPlatos()
         {
             List<Plato> aux = new List<Plato>();

@@ -6,15 +6,23 @@ namespace Dominio
 {
     public abstract class Servicio
     {
+        private int id;
         private Cliente cliente;
         private DateTime fecha;
         private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();
 
-        protected Servicio(Cliente cliente, DateTime fecha, CantidadPlatos cantPlatos)
+        protected Servicio(int id, Cliente cliente, DateTime fecha, CantidadPlatos cantPlatos)
         {
+            this.id = id;
             this.cliente = cliente;
             this.fecha = fecha;
             AgregarPlato(cantPlatos);
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
         }
 
         public Cliente Cliente
@@ -28,24 +36,68 @@ namespace Dominio
             get { return fecha; }
             set { fecha = value; }
         }
-       
 
-       //Todo agregar metodo de agregar cantidad platos
-       public bool AgregarPlato(CantidadPlatos cantPlato)
+
+        //Todo agregar metodo de agregar cantidad platos
+
+        public CantidadPlatos ObtenerCant(CantidadPlatos cantidad)
         {
-            bool exito = false;
-            //Todo validar que no exista, si existe sumar cantidad.
-            if(cantPlato.Cantidad > 0)
+            foreach (CantidadPlatos item in cantidadPlatos)
+            {
+                if (item.Plato.Id == cantidad.Plato.Id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public bool AgregarPlato(CantidadPlatos cantPlato)
+        {
+            bool exito = true;
+            CantidadPlatos aux = ObtenerCant(cantPlato);
+            if (aux == null)
             {
                 cantidadPlatos.Add(cantPlato);
-                exito = true;
+            }
+            else
+            {
+                aux.Cantidad += cantPlato.Cantidad;
             }
 
             return exito;
+
+
+
+        }
+
+        public override bool Equals(object obj)
+        {
+            Servicio servicio = obj as Servicio;
+            return obj != null && Id == servicio.id;
         }
 
 
 
-       
+
+        public override string ToString()
+        {
+
+
+            int i = 0;
+            while (i < cantidadPlatos.Count)
+            {
+
+
+                return $" {id} {cliente.Nombre} {cantidadPlatos[i].Plato} {cantidadPlatos[i].Cantidad}";
+                i++;
+            }
+
+            return "listo";
+
+
+        }
+
+
     }
 }

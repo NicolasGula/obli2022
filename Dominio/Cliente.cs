@@ -131,6 +131,5 @@ namespace Dominio
             return $"CLIENTE: {base.Apellido} {base.Nombre} || ID :{base.Id} || EMAIL : {mail} ";
         }
 
-
     }
 }

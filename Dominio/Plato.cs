@@ -61,11 +61,11 @@ namespace Dominio
         }
 
         ////Equals
-        //public override bool Equals(object obj)
-        //{
-        //    Plato plato = obj as Plato;
-        //    return obj != null && id == plato.Id;
-        //}
+        public override bool Equals(object obj)
+        {
+            Plato plato = obj as Plato;
+            return obj != null && id == plato.Id;
+        }
 
         //Tostring
         public override string ToString()
@@ -79,10 +79,6 @@ namespace Dominio
             precioMinimo = nuevoPrecio;
             return precioMinimo;
         }
-
-
-
-
 
     }
 }

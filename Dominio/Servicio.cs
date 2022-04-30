@@ -38,9 +38,7 @@ namespace Dominio
         }
 
 
-        //Todo agregar metodo de agregar cantidad platos
-
-        public CantidadPlatos ObtenerCant(CantidadPlatos cantidad)
+        public CantidadPlatos ObtenerCantidad(CantidadPlatos cantidad)
         {
             foreach (CantidadPlatos item in cantidadPlatos)
             {
@@ -55,7 +53,7 @@ namespace Dominio
         public bool AgregarPlato(CantidadPlatos cantPlato)
         {
             bool exito = true;
-            CantidadPlatos aux = ObtenerCant(cantPlato);
+            CantidadPlatos aux = ObtenerCantidad(cantPlato);
             if (aux == null)
             {
                 cantidadPlatos.Add(cantPlato);
@@ -66,9 +64,6 @@ namespace Dominio
             }
 
             return exito;
-
-
-
         }
 
         public override bool Equals(object obj)
@@ -77,27 +72,10 @@ namespace Dominio
             return obj != null && Id == servicio.id;
         }
 
-
-
-
         public override string ToString()
         {
-
-
-            int i = 0;
-            while (i < cantidadPlatos.Count)
-            {
-
-
-                return $" {id} {cliente.Nombre} {cantidadPlatos[i].Plato} {cantidadPlatos[i].Cantidad}";
-                i++;
-            }
-
-            return "listo";
-
-
+            return $"NOMBRE CLIENTE: {cliente.Nombre}\nPLATO: {cantidadPlatos[0].Plato}\nCANTIDAD: {cantidadPlatos[0].Cantidad}\nTOTAL: {cantidadPlatos[0].Plato.Precio * cantidadPlatos[0].Cantidad}\nFECHA: {fecha}";
         }
-
 
     }
 }

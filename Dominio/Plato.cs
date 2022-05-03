@@ -2,16 +2,15 @@
 
 namespace Dominio
 {
-    public class Plato
+    public class Plato : IEquatable<Plato>
     {
-        //Atributos
+        //ATRIBUTOS
         private static decimal precioMinimo = 200;
-
         private int id;
         private string nombre;
         private decimal precio;
 
-        //Propertys
+        //PROPIEDADES
         public int Id
         {
             get { return id; }
@@ -36,7 +35,7 @@ namespace Dominio
             set { precioMinimo = value; }
         }
 
-        //Constructor
+        //CONSTRUCTOR
         public Plato(int id, string nombre, decimal precio)
         {
             this.id = id;
@@ -44,41 +43,45 @@ namespace Dominio
             this.precio = precio;
         }
 
-        //Validaciones
+        //VALIDACIONES
         public bool ValidarPlato()
         {
             return ValidarNombrePlato() && ValidarPrecio();
         }
 
-        public bool ValidarNombrePlato()
+        private bool ValidarNombrePlato()
         {
-            return !string.IsNullOrEmpty(this.nombre);
+            return Validaciones.ValidarTexto(nombre);
         }
 
-        public bool ValidarPrecio()
+        private bool ValidarPrecio()
         {
             return this.precio >= precioMinimo;
         }
 
-        ////Equals
-        public override bool Equals(object obj)
-        {
-            Plato plato = obj as Plato;
-            return obj != null && id == plato.Id;
+        //EQUALS implementado con IEquatable
+        public bool Equals(Plato unPlato)
+        { 
+            return unPlato != null && id == unPlato.Id;
         }
 
-        //Tostring
+        //TOSTRING
         public override string ToString()
         {
-            return $"{id} {nombre} -> ${precio}";
+            return $"NOMBRE: {nombre} PRECIO: {precio}";
         }
 
-        //Cambiar precio minimo de plato
-        public static decimal ModificarPrecioMinimo(decimal nuevoPrecio)
+        //CAMBIA EL PRECIO MINIMO DEL PLATO
+        public static bool ModificarPrecioMinimo(decimal nuevoPrecio)
         {
-            precioMinimo = nuevoPrecio;
-            return precioMinimo;
+            bool exito = false;
+            if(nuevoPrecio > 100)
+            {
+                precioMinimo = nuevoPrecio;
+                exito =  true;
+            }
+            return exito;
+            
         }
-
     }
 }

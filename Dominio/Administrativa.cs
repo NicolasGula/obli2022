@@ -14,8 +14,8 @@ namespace Dominio
         private List<Repartidor> repartidores = new List<Repartidor>();
         private List<Local> locales = new List<Local>();
         private List<Delivery> deliverys = new List<Delivery>();
-
         private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();
+
         public Administrativa()
         {
             PreCargaPlatos();
@@ -28,6 +28,7 @@ namespace Dominio
         //===================================PRECARGA DE LOS DATOS===============================
         private void PreCargaPlatos()
         {
+            //CASOS POSITIVOS
             CargarPlato(1, "Milanesa", 500);
             CargarPlato(2, "Hamburguesa", 250);
             CargarPlato(3, "Fideos con pesto", 200);
@@ -38,37 +39,56 @@ namespace Dominio
             CargarPlato(8, "Nuggets", 200);
             CargarPlato(9, "Pizza con Muzzarella", 430);
             CargarPlato(10, "Chop Suey", 230);
+            //CASOS CON ERROR
+            CargarPlato(10, "Gramajo", 700); // ID IGUAL AL PLATO ANTERIOR
+            CargarPlato(8, "Nuggets", 90); // PRECIO MENOR AL PRECIO MINIMO ESTABLECIDO (PRECMIN:$200)
+            CargarPlato(9, "", 430); // PLATO SIN NOMBRE
         }
 
         private void PreCargaClientes()
         {
+            //CASOS POSITIVOS
             CargarCliente("cliente1@gmail.com", "Ab.12345", "Alfredo", "Gomez");
             CargarCliente("cliente2@gmail.com", "Ab.12345", "Lorenzo", "Ansuate");
             CargarCliente("cliente3@gmail.com", "Ab.12345", "Beatriz", "Pereyra");
             CargarCliente("cliente4@gmail.com", "Ab.12345", "Fiorella", "Rodriguez");
             CargarCliente("cliente5@gmail.com", "Ab.12345", "Pepe", "Argento");
+            //CASOS CON ERROR
+            CargarCliente("cliente1gmail.com", "Ab.12345", "Alfredo", "Gomez");// MAIL SIN @
+            CargarCliente("cliente2@gmail.com", "Ab.14", "Lorenzo", "Ansuate");// PASSWORD CON LONGITUD MENOR A 6
+            CargarCliente("cliente3@gmail.com", "Ab.12345", "", "Pereyra");// CLIENTE SIN NOMBRE
         }
 
         private void PreCargaMozos()
         {
+            //CASOS POSITIVOS
             CargarMozo("Raquel", "Suarez");
             CargarMozo("Ramon", "Fagundez");
             CargarMozo("Rosario", "Figueroa");
             CargarMozo("Raul", "Mauro");
             CargarMozo("Roman", "Couste");
+            //CASOS NEGATIVOS
+            CargarMozo("", "Mauro"); // SIN NOMBRE
+            CargarMozo("Roman", "");// SIN APELLIDO
         }
 
         private void PreCargaRepartidores()
         {
+            //CASOS POSITIVOS
             CargarRepartidor("Moto", "Federico", "Baston");
             CargarRepartidor("Bicicleta", "Nahuel", "Larrosa");
             CargarRepartidor("Pie", "Paola", "De los santos");
             CargarRepartidor("Bicicleta", "Penelope", "Cruz");
             CargarRepartidor("Moto", "Federico", "Baston");
+            //CASOS NEGATIVOS
+            CargarRepartidor("", "Federico", "Baston"); // SIN TIPO DE VEHICULO
+            CargarRepartidor("Bicicleta", "", "Larrosa");// SIN NOMBRE
+            CargarRepartidor("Pie", "Paola", "");// SIN APELLIDO
         }
 
         private void PreCargaServicios()
         {
+            //CASOS POSITIVOS
             //Locales
             CantidadPlatos unaCantidad;
 
@@ -135,6 +155,9 @@ namespace Dominio
             unCliente = BuscarCliente(3);
             unaCantidad = CargarCantidadPlatos(unPlato, 8);
             CargarDelivery(10, unCliente, new DateTime(2022, 09, 10), unaCantidad, "Rivera", unRepartidor, 20);
+
+            //CASOS NEGATIVOS
+
         }
 
         //===================================METODOS PARA CARGAR LOS OBJETOS===============================
@@ -182,7 +205,6 @@ namespace Dominio
 
         public CantidadPlatos CargarCantidadPlatos(Plato unPlato, int cantidad)
         {
-            bool exito = false;
             if (cantidad > 0)
             {
                 CantidadPlatos unaCantidad;
@@ -207,7 +229,7 @@ namespace Dominio
 
         public bool AgregarDelivery(Delivery unDelivery, CantidadPlatos unaCantidad)
         {
-            if (!deliverys.Contains(unDelivery))
+            if (unDelivery != null && unaCantidad != null && !deliverys.Contains(unDelivery))
             {
                 deliverys.Add(unDelivery);
                 return true;
@@ -221,7 +243,7 @@ namespace Dominio
 
         public bool AgregarLocal(Local unLocal, CantidadPlatos unaCantidad)
         {
-            if (!locales.Contains(unLocal))
+            if (unLocal != null && unLocal.Validar()  && unaCantidad != null && !locales.Contains(unLocal))
             {
                 locales.Add(unLocal);
                 return true;
@@ -346,19 +368,17 @@ namespace Dominio
                     aux.Add(item);
                 }
             }
-            return aux;
-        }
 
-        //==================ESTE METODO CREO QUE ESTA DE MAS, POR LAS DUDAS NO SACARLO AUN.
-        //public List<CantidadPlatos> Cantidad()
-        //{
-        //    List<CantidadPlatos> aux = new List<CantidadPlatos>();
-        //    foreach (CantidadPlatos item in cantidadPlatos)
-        //    {
-        //        aux.Add(item);
-        //    }
-        //    return aux;
-        //}
+            if(aux.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return aux;
+            }
+            
+        }
 
         //===================================METODOS QUE DEVUELVEN LISTAS===============================
         public List<Delivery> ListarDeliverys()
@@ -388,6 +408,11 @@ namespace Dominio
             {
                 aux.Add(item);
             }
+
+            if(aux.Count == 0)
+            {
+                return null;
+            }
             return aux;
         }
 
@@ -398,10 +423,25 @@ namespace Dominio
             {
                 aux.Add(item);
             }
-            aux.Sort();
-            return aux;
+
+            if(aux.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                aux.Sort();
+                return aux;
+            }
         }
 
+        //===================================METODO QUE MODIFICA EL PRECIO MINIMO DE LOS PLATOS===============================
+        public bool ModificarPrecio(decimal nuevoPrecio)
+        {
+            return Plato.ModificarPrecioMinimo(nuevoPrecio);
+        }
+
+        //====================================LISTAS DE TODOS LOS DATOS PRECARGADOS==========================
         public List<Mozo> ListarMozo()
         {
             List<Mozo> aux = new List<Mozo>();
@@ -413,10 +453,14 @@ namespace Dominio
             return aux;
         }
 
-        //===================================METODOS QUE MODIFICA EL PRECIO MINIMO DE LOS PLATOS===============================
-        public decimal ModificarPrecio(decimal nuevoPrecio)
+        public List<Repartidor> ListarRepartidores()
         {
-            return Plato.ModificarPrecioMinimo(nuevoPrecio);
+            List<Repartidor> aux = new List<Repartidor>();
+            foreach (Repartidor item in repartidores)
+            {
+                aux.Add(item);
+            }
+            return aux;
         }
     }
 }

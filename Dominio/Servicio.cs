@@ -4,13 +4,15 @@ using System.Text;
 
 namespace Dominio
 {
-    public abstract class Servicio
+    public abstract class Servicio : IEquatable<Servicio>
     {
+        //ATRIBUTOS
         private int id;
         private Cliente cliente;
         private DateTime fecha;
         private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();
 
+        //CONSTRUCTOR
         protected Servicio(int id, Cliente cliente, DateTime fecha, CantidadPlatos cantPlatos)
         {
             this.id = id;
@@ -19,6 +21,7 @@ namespace Dominio
             AgregarPlato(cantPlatos);
         }
 
+        //PROPERTYS
         public int Id
         {
             get { return id; }
@@ -37,7 +40,7 @@ namespace Dominio
             set { fecha = value; }
         }
 
-
+        
         public CantidadPlatos ObtenerCantidad(CantidadPlatos cantidad)
         {
             foreach (CantidadPlatos item in cantidadPlatos)
@@ -50,6 +53,8 @@ namespace Dominio
             return null;
         }
 
+        //AGREGA EL PLATO A LA LISTA DE CANTIDAD DE PLATOS SI
+        //NO ESTA. SI ESTA SE AGREGA LA CANTIDAD
         public bool AgregarPlato(CantidadPlatos cantPlato)
         {
             bool exito = true;
@@ -66,15 +71,16 @@ namespace Dominio
             return exito;
         }
 
-        public override bool Equals(object obj)
+        //EQUALS
+        public bool Equals(Servicio unServicio)
         {
-            Servicio servicio = obj as Servicio;
-            return obj != null && Id == servicio.id;
+            return unServicio != null && Id == unServicio.id;
         }
 
+        //TOSTRING
         public override string ToString()
         {
-            return $"NOMBRE CLIENTE: {cliente.Nombre}\nPLATO: {cantidadPlatos[0].Plato}\nCANTIDAD: {cantidadPlatos[0].Cantidad}\nTOTAL: {cantidadPlatos[0].Plato.Precio * cantidadPlatos[0].Cantidad}\nFECHA: {fecha}";
+            return $"CLIENTE: {cliente.Nombre}\nPLATO: {cantidadPlatos[0].Plato}\nCANTIDAD: {cantidadPlatos[0].Cantidad}\nTOTAL: {cantidadPlatos[0].Plato.Precio * cantidadPlatos[0].Cantidad}\nFECHA: {fecha}";
         }
 
     }

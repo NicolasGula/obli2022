@@ -4,17 +4,20 @@ using System.Text;
 
 namespace Dominio
 {
-    public class CantidadPlatos
+    public class CantidadPlatos : IEquatable<CantidadPlatos>
     {
+        //ATRIBUTOS
         private int cantidad;
         private Plato plato;
 
+        //CONSTRUCTOR
         public CantidadPlatos(int cantidad, Plato plato)
         {
             this.cantidad = cantidad;
             this.plato = plato;
         }
 
+        //PROPERTYS
         public int Cantidad
         {
             get { return cantidad; }
@@ -27,21 +30,27 @@ namespace Dominio
             set { plato = value; }
         }
 
+        //VALIDACIONES
+        public bool Validar()
+        {
+            return ValidarCantidadDeComensales();
+        }
+
+        private bool ValidarCantidadDeComensales()
+        {
+            return Validaciones.MayorACero(this.cantidad);
+        }
+
+        //TOSTRING
         public override string ToString()
         {
             return $"{cantidad} de {plato.Nombre}";
         }
 
-        public bool Validar()
+       //EQUALS
+        public bool Equals(CantidadPlatos unaCantidad)
         {
-
-            return cantidad > 0;
-        }
-
-        public override bool Equals(object obj)
-        {
-            CantidadPlatos CantidadPlatos = obj as CantidadPlatos;
-            return obj != null && Plato == CantidadPlatos.Plato;
+            return unaCantidad != null && Plato == unaCantidad.Plato;
         }
     }
 }

@@ -16,7 +16,8 @@ namespace obli2022
             {
                 Console.WriteLine("OBLIGATORIO 2022 - PROGRAMACION 2");
                 Console.WriteLine("=================================");
-                Console.WriteLine("1-Listar platos\n2-Listar clientes ordenados por apellido / nombre\n3-Lista de los servicios entregados por un repartidor en un rango de fechas dado\n4-Modificar el valor del precio minimo del plato\n5-Alta mozo\n");
+                Console.WriteLine("1-Listar platos\n2-Listar clientes ordenados por apellido / nombre\n3-Lista de los servicios entregados por un repartidor en un rango de fechas dado\n4-Modificar el valor del precio minimo del plato\n5-Alta mozo\n0-PARA SALIR");
+                Console.WriteLine("=================================\nPARA PRUEBAS\n6-LISTA DE TODOS LOS MOZOS\n7-LISTA DE TODOS LOS REPARTIDORES");
                 opcion = int.Parse(Console.ReadLine());
 
                 switch (opcion)
@@ -36,6 +37,12 @@ namespace obli2022
                     case 5:
                         AltaMozo();
                         break;
+                    case 6:
+                        ListaDeMozos();
+                        break;
+                    case 7:
+                        ListaDeRepartidores();
+                        break;
                     default:
                         break;
                 }
@@ -47,9 +54,17 @@ namespace obli2022
         public static void ListarPlatos()
         {
             Console.WriteLine("\nPLATOS");
-            foreach (Plato item in admin.ListarPlatos())
+            if(admin.ListarPlatos() == null)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("No se encontraron registro de platos.");
+            }
+            else
+            {
+                foreach (Plato item in admin.ListarPlatos())
+                {
+
+                    Console.WriteLine(item);
+                }
             }
             Console.WriteLine();
         }
@@ -60,10 +75,18 @@ namespace obli2022
         public static void ListarClientesOrdenadosPorApellidoNombre()
         {
             Console.WriteLine("\nCLIENTES");
-            foreach (Cliente item in admin.ListarClientes())
+            if (admin.ListarClientes() == null)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("\nNo se encontro registro de clientes.\n");
             }
+            else
+            {
+                foreach (Cliente item in admin.ListarClientes())
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            Console.WriteLine();
         }
 
         //Muestra en consola los servicios entregados por un repartidor
@@ -93,8 +116,7 @@ namespace obli2022
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("El formato de la fecha no es el correcto.\nIntentelo nuevamente por favor.");
-                    Console.WriteLine();
+                    Console.WriteLine("El formato de la fecha no es el correcto.\nIntentelo nuevamente por favor.\n");
                 }
 
                 //Verifica que la primera fecha ingresada sea menor que la segunda.
@@ -105,17 +127,22 @@ namespace obli2022
                     primeraFecha = segundaFecha;
                     segundaFecha = aux;
                 }
-
-                foreach (Delivery item in admin.BuscarServiciosDeRepartidor(repartidor, primeraFecha, segundaFecha))
+                
+                if(admin.BuscarServiciosDeRepartidor(repartidor, primeraFecha, segundaFecha) == null)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine(item);
-                    Console.WriteLine();
+                    Console.WriteLine("\nNo se encontraron registros.\n");
+                }
+                else
+                {
+                    foreach (Delivery item in admin.BuscarServiciosDeRepartidor(repartidor, primeraFecha, segundaFecha))
+                    { 
+                        Console.WriteLine("\n" + item + "\n");
+                    }
                 }
             }
             else
             {
-                Console.WriteLine("¡¡¡¡¡Ese repartidor no Existe!!!!!");
+                Console.WriteLine("\nEse repartidor no Existe!!\n");
             }
 
         }
@@ -128,7 +155,14 @@ namespace obli2022
             Console.WriteLine("Ingresar nuevo precio minimo :");
             decimal nuevoPrecio = decimal.Parse(Console.ReadLine());
 
-            Console.WriteLine($"Precio minimo ahora es {admin.ModificarPrecio(nuevoPrecio)}");
+            if (admin.ModificarPrecio(nuevoPrecio))
+            {
+                Console.WriteLine($"\nEl precio minimo ahora es {nuevoPrecio}\n");
+            }
+            else
+            {
+                Console.WriteLine("\nEl nuevo precio minimo ingresado es menor a nuestra logica de negocio ($100).\n");
+            }
         }
 
         //Permite cargar un mozo al sistema
@@ -144,13 +178,35 @@ namespace obli2022
 
             if (admin.CargarMozo(nombre, apellido))
             {
-                Console.WriteLine("El mozo fue agregado con exito.");
+                Console.WriteLine("\nEl mozo fue agregado con exito.\n");
             }
             else
             {
-                Console.WriteLine("Los datos ingresados no son correctos.\nIntentelo nuevamente por favor.");
+                Console.WriteLine("\nLos datos ingresados no son correctos.\nIntentelo nuevamente por favor.\n");
                 Console.WriteLine();
             }
+        }
+        //=========================ESTOS DOS METODOS NO SE PIDEN EN LA LETRA PERO ESTAN PARA CORROBORAR
+        //=========================SI LAS PRECARGAS SE HICIERON CORRECTAMENTE Y SI LOS CAMBIOS REALIZADOS
+        //=========================SE EFECTUARON CON EXITO.
+        public static void ListaDeMozos()
+        {
+            Console.WriteLine();
+            foreach (Mozo item in admin.ListarMozo())
+            {
+                Console.WriteLine(item);   
+            }
+            Console.WriteLine();
+        }
+
+        public static void ListaDeRepartidores()
+        {
+            Console.WriteLine();
+            foreach (Repartidor item in admin.ListarRepartidores())
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
         }
     }
 }

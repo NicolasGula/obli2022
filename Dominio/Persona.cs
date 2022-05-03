@@ -6,13 +6,15 @@ namespace Dominio
 {
             public class Persona : IComparable<Cliente>
             {
+                //ID AUTONUMERICO
                 private static int idAuto = 0;
-                //Atributos
+
+                //ATRIBUTOS
                 private int id;
                 private string nombre;
                 private string apellido;
 
-                //Propertys
+                //PROPERTYS
                 public int Id
                 {
                     get { return id; }
@@ -31,7 +33,7 @@ namespace Dominio
                     set { apellido = value; }
                 }
 
-                //Constructor
+                //CONSTRUCTOR
                 public Persona(string nombre, string apellido)
                 {
                     this.id = ++idAuto;
@@ -39,23 +41,23 @@ namespace Dominio
                     this.apellido = apellido;
                 }
 
-                //Validaciones
+                //VALIDACIONES
                 public bool ValidarPersona()
                 {
                     return ValidarNombrePersona() && ValidarApellido();
                 }
 
-                public bool ValidarNombrePersona()
+                private bool ValidarNombrePersona()
                 {
-                    return !string.IsNullOrEmpty(this.nombre) && EncontrarNumero(this.Nombre);
+                    return Validaciones.ValidarTexto(this.nombre) && EncontrarNumero(this.Nombre);
                 }
 
                 public bool ValidarApellido()
                 {
-                    return !string.IsNullOrEmpty(this.apellido) && EncontrarNumero(this.apellido);
+                    return Validaciones.ValidarTexto(this.apellido) && EncontrarNumero(this.apellido);
                 }
 
-                //Cerciora que un texto no contenga numeros.
+                //CERCIORA QUE UN TEXTO NO TENGA NUMEROS.
                 public bool EncontrarNumero(string palabra)
                 {
                     bool exito = true;
@@ -73,6 +75,9 @@ namespace Dominio
                     return exito;
                 }
 
+                //COMPARA LOS CLIENTES POR APELLIDO
+                //SI EL APELLIDO EMPIEZA POR LA MISMA LETRA
+                //LOS ORDENA POR NOMBRE
                 public int CompareTo(Cliente unCliente)
                 {
                     int orden = Apellido.CompareTo(unCliente.Apellido);

@@ -4,40 +4,49 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Repartidor : Persona
+    public class Repartidor : Persona, IEquatable<Repartidor>
     {
-        //Atributos
+        //ATRIBUTOS
         private string tipoDeVehiculo;
 
-        //Propertys
+        //PROPERTYS
         public string TipoDeVehiculo
         {
             get { return tipoDeVehiculo; }
             set { tipoDeVehiculo = value; }
         }
 
-        //Constructor
+        //CONSTRUCTOR
         public Repartidor(string tipoDeVehiculo, string nombre, string apellido) : base(nombre, apellido)
         {
             this.tipoDeVehiculo = tipoDeVehiculo;
         }
 
-        //Validaciones
+        //VALIDACIONES
         public bool ValidarRepartidor()
         {
-            return ValidarPersona();
+            return
+                ValidarPersona() &&
+                ValidarTipoVehiculo();
         }
 
-        //Equals
-        public override bool Equals(object obj)
+        private bool ValidarTipoVehiculo()
         {
-            Repartidor repartidor = obj as Repartidor;
-            return obj != null && Id == repartidor.Id;
+            return this.tipoDeVehiculo == "Moto" ||
+                    this.tipoDeVehiculo == "Bicicleta" ||
+                    this.tipoDeVehiculo == "Pie";
         }
 
+        //EQUALS
+        public bool Equals(Repartidor unRepartidor)
+        {  
+            return unRepartidor != null && Id == unRepartidor.Id;
+        }
+
+        //TOSTRING
         public override string ToString()
         {
-            return $"{base.Apellido} {base.Nombre} TIPO : {tipoDeVehiculo}";
+            return $"{base.Apellido} {base.Nombre} {base.Id} TIPO : {tipoDeVehiculo}";
         }
     }
 }

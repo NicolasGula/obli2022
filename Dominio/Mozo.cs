@@ -6,40 +6,41 @@ namespace Dominio
 {
     public class Mozo : Persona
     {
+        //NUMFUNCIONARIO AUTO NUMERICO
         private static int numFuncionarioAuto = 0;
-        //Atributos
+
+        //ATRIBUTOS
         private int numFuncionario;
 
-        //Propertys
+        //PROPERTYS
         public int NumFuncionario
         {
             get { return numFuncionario; }
             set { numFuncionario = value; }
         }
 
-        //Constructor
+        //CONSTRUCTOR
         public Mozo(string nombre, string apellido) : base(nombre, apellido)
         {
             this.numFuncionario = ++numFuncionarioAuto;
         }
 
-        //Validaciones
+        //VALIDACIONES
         public bool ValidarMozo()
         {
             return ValidarPersona();
         }
 
-        //ToString
+        //TOSTRING
         public override string ToString()
         {
-            return $" {base.Apellido} {base.Nombre} Funcionario Numero : {numFuncionario}";
+            return $" {base.Apellido} {base.Nombre} {base.Id} Funcionario Numero : {numFuncionario}";
         }
 
-        //Equals
-        public override bool Equals(object obj)
+        //EQUALS
+        public bool Equals(Mozo unMozo)
         {
-            Mozo mozo = obj as Mozo;
-            return obj != null && numFuncionario == mozo.numFuncionario;
+            return unMozo != null && numFuncionario == unMozo.numFuncionario;
         }
     }
 }

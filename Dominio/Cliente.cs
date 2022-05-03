@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Cliente : Persona
+    public class Cliente : Persona, IEquatable<Cliente>
     {
-        //Atributos
+        //ATRIBUTOS
         private string mail;
         private string password;
 
-        //Propertys
+        //PROPIEDADES
         public string Mail
         {
             get { return mail; }
@@ -24,22 +24,27 @@ namespace Dominio
             set { password = value; }
         }
 
-        //Constructor
+        //CONSTRUCTOR
         public Cliente(string mail, string password, string nombre, string apellido) : base(nombre, apellido)
         {
             this.mail = mail;
             this.password = password;
         }
 
-        //Validaciones
+        //VALIDACIONES
         public bool ValidarCliente()
         {
-            return ValidarMail() && ValidarPassword() && ValidarPersona();
+            return 
+                ValidarMail() && 
+                ValidarPassword() && 
+                ValidarPersona();
         }
 
-        //Valida el mail. "System.ComponentModel.DataAnnotations" provee clases de atributos que se usan para definir metadatos para controles
-        // de datos. En este caso EmailAddressAtribute inicializa una nueva instancia de su clase
-        // que valida direcciones de correo.
+        //VALIDA EL MAIL.
+        //"System.ComponentModel.DataAnnotations" provee clases de atributos que
+        //se usan para definir metadatos para controles de datos.
+        //En este caso EmailAddressAtribute inicializa una nueva instancia de su clase
+        //que valida direcciones de correo.
         public bool ValidarMail()
         {
             var testerDeEmail = new EmailAddressAttribute();
@@ -47,8 +52,8 @@ namespace Dominio
             return exito;
         }
 
-        //LLama a todos los metodos utilizados para validar el password
-        //Longitud de password, si contiene una minuscula, una mayuscula y un numero.
+        //LLAMA A TODOS LOS METODOS PARA VALIDAR EL PASSWORD
+        //LONGITUD DE PASSWORD, SI CONTIENE UNA MINUSCULA, UNA MAYUSCULA Y UN NUMERO.
         public bool ValidarPassword()
         {
             if (this.password.Length >= 6)
@@ -67,7 +72,7 @@ namespace Dominio
             return false;
         }
 
-        //Valida que el password contenga al menos una minuscula.
+        //VALIDA QUE EL PASSWORD TENGA AL MENOS UNA MINUSCULA.
         public bool BuscarMinuscula()
         {
             bool exito = false;
@@ -84,7 +89,7 @@ namespace Dominio
             return exito;
         }
 
-        //Valida que el password contenga al menos una mayuscula.
+        //VVALIDA QUE EL PASSWORD TENGA AL MENOS UNA MAYUSCULA.
         public bool BuscarMayuscula()
         {
             bool exito = false;
@@ -101,7 +106,7 @@ namespace Dominio
             return exito;
         }
 
-        //Valida que el password contenga al menos un numero.
+        //VALIDA QUE EL PASSWORD TENGA AL MENOS UN NUMERO.
         public bool BuscarNumero()
         {
             bool exito = false;
@@ -118,17 +123,21 @@ namespace Dominio
             return exito;
         }
 
-        //Equals
-        public override bool Equals(object obj)
+        //EQUALS
+        public bool Equals(Cliente unCliente)
         {
-            Cliente cliente = obj as Cliente;
-            return obj != null && Id == cliente.Id;
+            return unCliente != null && Id == unCliente.Id;
         }
 
-        //Tostring
+        //TOSTRING
         public override string ToString()
         {
-            return $"CLIENTE: {base.Apellido} {base.Nombre} || ID :{base.Id} || EMAIL : {mail} ";
+            string cliente = "";
+            cliente += $"APELLIDO: {base.Apellido}\n";
+            cliente += $"NOMBRE:{base.Nombre}\n";
+            cliente += $"ID: {base.Id}\n";
+            cliente += $"EMAIL: {mail}\n";
+            return cliente;
         }
 
     }

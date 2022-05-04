@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio
 {
-            public class Persona : IComparable<Cliente>, IValidable
+            public abstract class Persona : IComparable<Cliente>, IValidable
     {
                 //ID AUTONUMERICO
                 private static int idAuto = 0;

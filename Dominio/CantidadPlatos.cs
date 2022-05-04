@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class CantidadPlatos : IEquatable<CantidadPlatos>
+    public class CantidadPlatos : IEquatable<CantidadPlatos>, IValidable
     {
         //ATRIBUTOS
         private int cantidad;

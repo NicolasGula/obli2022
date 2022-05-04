@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Delivery : Servicio
+    public class Delivery : Servicio, IValidable
     {
         //ATRIBUTOS
         private string direccion;

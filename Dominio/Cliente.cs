@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Cliente : Persona, IEquatable<Cliente>
+    public class Cliente : Persona, IEquatable<Cliente>, IValidable
     {
         //ATRIBUTOS
         private string mail;
@@ -32,12 +32,12 @@ namespace Dominio
         }
 
         //VALIDACIONES
-        public bool ValidarCliente()
+        public bool Validar()
         {
             return 
                 ValidarMail() && 
                 ValidarPassword() && 
-                ValidarPersona();
+                base.Validar();
         }
 
         //VALIDA EL MAIL.

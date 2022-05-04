@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Mozo : Persona
+    public class Mozo : Persona, IEquatable<Mozo>, IValidable
     {
         //NUMFUNCIONARIO AUTO NUMERICO
         private static int numFuncionarioAuto = 0;
@@ -26,9 +26,9 @@ namespace Dominio
         }
 
         //VALIDACIONES
-        public bool ValidarMozo()
+        public bool Validar()
         {
-            return ValidarPersona();
+            return base.Validar();
         }
 
         //TOSTRING

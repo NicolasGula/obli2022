@@ -94,63 +94,63 @@ namespace Dominio
 
             Plato unPlato = BuscarPlato(2);
             Cliente unCliente = BuscarCliente(2);
-            Mozo unMozo = BuscarMozo(1);
+            Mozo unMozo = BuscarMozo(9);
             unaCantidad = CargarCantidadPlatos(unPlato, 4);
             CargarLocal(1, unCliente, new DateTime(2022, 07, 15), unaCantidad, 4, unMozo, 2, 70);
 
             unPlato = BuscarPlato(5);
             unCliente = BuscarCliente(5);
-            unMozo = BuscarMozo(2);
+            unMozo = BuscarMozo(10);
             unaCantidad = CargarCantidadPlatos(unPlato, 2);
             CargarLocal(2, unCliente, new DateTime(2022, 08, 12), unaCantidad, 4, unMozo, 2, 70);
 
             unPlato = BuscarPlato(6);
             unCliente = BuscarCliente(2);
-            unMozo = BuscarMozo(2);
+            unMozo = BuscarMozo(13);
             unaCantidad = CargarCantidadPlatos(unPlato, 2);
             CargarLocal(3, unCliente, new DateTime(2022, 04, 19), unaCantidad, 4, unMozo, 2, 70);
 
 
             unPlato = BuscarPlato(1);
             unCliente = BuscarCliente(1);
-            unMozo = BuscarMozo(2);
+            unMozo = BuscarMozo(11);
             unaCantidad = CargarCantidadPlatos(unPlato, 5);
             CargarLocal(4, unCliente, new DateTime(2022, 07, 29), unaCantidad, 4, unMozo, 2, 70);
 
             unPlato = BuscarPlato(1);
-            unCliente = BuscarCliente(6);
-            unMozo = BuscarMozo(2);
+            unCliente = BuscarCliente(5);
+            unMozo = BuscarMozo(12);
             unaCantidad = CargarCantidadPlatos(unPlato, 4);
             CargarLocal(5, unCliente, new DateTime(2022, 03, 20), unaCantidad, 4, unMozo, 2, 70);
 
             //Deliverys
             Repartidor unRepartidor;
 
-            unRepartidor = BuscarRepartidor(12);
+            unRepartidor = BuscarRepartidor(16);
             unPlato = BuscarPlato(1);
             unCliente = BuscarCliente(3);
             unaCantidad = CargarCantidadPlatos(unPlato, 5);
             CargarDelivery(6, unCliente, new DateTime(2021, 01, 31), unaCantidad, "Rivera", unRepartidor, 10);
 
-            unRepartidor = BuscarRepartidor(13);
+            unRepartidor = BuscarRepartidor(17);
             unPlato = BuscarPlato(4);
             unCliente = BuscarCliente(1);
             unaCantidad = CargarCantidadPlatos(unPlato, 8);
             CargarDelivery(7, unCliente, new DateTime(2022, 05, 21), unaCantidad, "18 de julio", unRepartidor, 15);
 
-            unRepartidor = BuscarRepartidor(14);
+            unRepartidor = BuscarRepartidor(18);
             unPlato = BuscarPlato(2);
             unCliente = BuscarCliente(3);
             unaCantidad = CargarCantidadPlatos(unPlato, 2);
             CargarDelivery(8, unCliente, new DateTime(2022, 08, 12), unaCantidad, "Bulevar Artigas", unRepartidor, 30);
 
-            unRepartidor = BuscarRepartidor(15);
+            unRepartidor = BuscarRepartidor(19);
             unPlato = BuscarPlato(5);
             unCliente = BuscarCliente(4);
             unaCantidad = CargarCantidadPlatos(unPlato, 1);
             CargarDelivery(9, unCliente, new DateTime(2022, 03, 24), unaCantidad, "Orinoco", unRepartidor, 50);
 
-            unRepartidor = BuscarRepartidor(12);
+            unRepartidor = BuscarRepartidor(20);
             unPlato = BuscarPlato(1);
             unCliente = BuscarCliente(3);
             unaCantidad = CargarCantidadPlatos(unPlato, 8);
@@ -171,6 +171,7 @@ namespace Dominio
         public bool CargarCliente(string mail, string password, string nombre, string apellido)
         {
             Cliente unCliente;
+            //If de agregar cliente
             unCliente = new Cliente(mail, password, nombre, apellido);
             return AgregarCliente(unCliente);
         }
@@ -219,7 +220,7 @@ namespace Dominio
         public bool AgregarPlato(Plato unPlato)
         {
             bool exito = false;
-            if (unPlato != null && unPlato.ValidarPlato() && !platos.Contains(unPlato))
+            if (unPlato != null && unPlato.Validar() && !platos.Contains(unPlato))
             {
                 platos.Add(unPlato);
                 exito = true;
@@ -258,7 +259,7 @@ namespace Dominio
         public bool AgregarCliente(Cliente unCliente)
         {
             bool exito = false;
-            if (unCliente != null && unCliente.ValidarCliente() && !clientes.Contains(unCliente))
+            if (unCliente != null && unCliente.Validar() && !clientes.Contains(unCliente))
             {
                 clientes.Add(unCliente);
                 exito = true;
@@ -269,7 +270,7 @@ namespace Dominio
         public bool AgregarMozo(Mozo unMozo)
         {
             bool exito = false;
-            if (unMozo != null && unMozo.ValidarMozo() && !mozos.Contains(unMozo))
+            if (unMozo != null && unMozo.Validar() && !mozos.Contains(unMozo))
             {
                 mozos.Add(unMozo);
                 exito = true;
@@ -280,7 +281,7 @@ namespace Dominio
         public bool AgregarRepartidor(Repartidor unRepartidor)
         {
             bool exito = false;
-            if (unRepartidor != null && unRepartidor.ValidarRepartidor() && !repartidores.Contains(unRepartidor))
+            if (unRepartidor != null && unRepartidor.Validar() && !repartidores.Contains(unRepartidor))
             {
                 repartidores.Add(unRepartidor);
                 exito = true;

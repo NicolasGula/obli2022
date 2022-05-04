@@ -2,7 +2,7 @@
 
 namespace Dominio
 {
-    public class Plato : IEquatable<Plato>
+    public class Plato : IEquatable<Plato>, IValidable
     {
         //ATRIBUTOS
         private static decimal precioMinimo = 200;
@@ -44,7 +44,7 @@ namespace Dominio
         }
 
         //VALIDACIONES
-        public bool ValidarPlato()
+        public bool Validar()
         {
             return ValidarNombrePlato() && ValidarPrecio();
         }

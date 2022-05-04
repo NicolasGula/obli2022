@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Repartidor : Persona, IEquatable<Repartidor>
+    public class Repartidor : Persona, IEquatable<Repartidor>, IValidable
     {
         //ATRIBUTOS
         private string tipoDeVehiculo;
@@ -23,10 +23,10 @@ namespace Dominio
         }
 
         //VALIDACIONES
-        public bool ValidarRepartidor()
+        public bool Validar()
         {
             return
-                ValidarPersona() &&
+                base.Validar() &&
                 ValidarTipoVehiculo();
         }
 

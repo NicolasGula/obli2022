@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Local : Servicio
+    public class Local : Servicio, IValidable
     {
         //ATRIBUTOS
         private int numeroMesa;

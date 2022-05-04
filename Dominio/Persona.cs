@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Dominio
 {
-            public class Persona : IComparable<Cliente>
-            {
+            public class Persona : IComparable<Cliente>, IValidable
+    {
                 //ID AUTONUMERICO
                 private static int idAuto = 0;
 
@@ -42,7 +42,7 @@ namespace Dominio
                 }
 
                 //VALIDACIONES
-                public bool ValidarPersona()
+                public bool Validar()
                 {
                     return ValidarNombrePersona() && ValidarApellido();
                 }

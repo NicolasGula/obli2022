@@ -7,6 +7,7 @@ namespace Dominio
 {
     public class Administrativa
     {
+        private static Administrativa instancia;
         //===================================LISTAS CON TODA LA INFORMACION===============================
         private List<Plato> platos = new List<Plato>();
         private List<Cliente> clientes = new List<Cliente>();
@@ -15,6 +16,18 @@ namespace Dominio
         private List<Local> locales = new List<Local>();
         private List<Delivery> deliverys = new List<Delivery>();
         private List<CantidadPlatos> cantidadPlatos = new List<CantidadPlatos>();
+
+        public static Administrativa Instancia
+        {
+            get
+            {
+                if(instancia ==  null)
+                {
+                    instancia = new Administrativa();
+                }
+                return instancia;
+            }
+        }
 
         public Administrativa()
         {
@@ -414,6 +427,7 @@ namespace Dominio
             {
                 return null;
             }
+            aux.Sort();
             return aux;
         }
 

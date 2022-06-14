@@ -2,7 +2,7 @@
 
 namespace Dominio
 {
-    public class Plato : IEquatable<Plato>, IValidable
+    public class Plato : IEquatable<Plato>, IValidable, IComparable<Plato>
     {
         //ATRIBUTOS
         private static decimal precioMinimo = 200;
@@ -81,7 +81,12 @@ namespace Dominio
                 exito =  true;
             }
             return exito;
-            
+        }
+
+        //COMPARA LOS LPATOS POR NOMBRE Y LOS DEVUELVE ORDENADOS ALFABETICAMENTE.
+        public int CompareTo(Plato unPlato)
+        {
+            return Nombre.CompareTo(unPlato.Nombre);
         }
     }
 }
